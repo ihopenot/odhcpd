@@ -331,7 +331,12 @@ static void handle_solicit(void *addr, void *data, size_t len,
 	struct sockaddr_ll *ll = addr;
 	struct interface *c;
 	char ipbuf[INET6_ADDRSTRLEN];
+	char ipbuf2[INET6_ADDRSTRLEN];
 	uint8_t mac[6];
+
+	inet_ntop(AF_INET6, &req->nd_ns_target, ipbuf, sizeof(ipbuf));
+	inet_ntop(AF_INET6, &ip6->ip6_src, ipbuf2, sizeof(ipbuf2));
+	syslog(LOG_DEBUG, "CAPTURE NS from %s to %s on %s", ipbuf2, ipbuf, iface->name);
 
 	/* Solicitation is for duplicate address detection */
 	bool ns_is_dad = IN6_IS_ADDR_UNSPECIFIED(&ip6->ip6_src);
