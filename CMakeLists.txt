@@ -49,14 +49,14 @@ message("================= after install =======================")
 
 
 # Packaging information
-set(CPACK_PACKAGE_VERSION "1")
-set(CPACK_PACKAGE_CONTACT "Steven Barth <steven@midlink.org>")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "fuckodhcpd")
-set(CPACK_GENERATOR "DEB;RPM;STGZ")
-set(CPACK_STRIP_FILES true)
+# set(CPACK_PACKAGE_VERSION "1")
+# set(CPACK_PACKAGE_CONTACT "Steven Barth <steven@midlink.org>")
+# set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "fuckodhcpd")
+# set(CPACK_GENERATOR "DEB;RPM;STGZ")
+# set(CPACK_STRIP_FILES true)
+# 
+# SET(CPACK_DEBIAN_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION})
+# set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CPACK_DEBIAN_PACKAGE_VERSION}")
 
-SET(CPACK_DEBIAN_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION})
-set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CPACK_DEBIAN_PACKAGE_VERSION}")
-
-include(CPack)
+#include(CPack)
 
