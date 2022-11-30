@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 cmake_policy(SET CMP0015 NEW)
 
 # Project Definition
-project(odhcpd C)
+project(fuckodhcpd C)
 
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g3 -std=gnu99")
@@ -36,11 +36,11 @@ if(${DHCPV4_SUPPORT})
 	set(EXT_SRC ${EXT_SRC} src/dhcpv4.c)
 endif(${DHCPV4_SUPPORT})
 
-add_executable(odhcpd src/odhcpd.c src/config.c src/router.c src/dhcpv6.c src/ndp.c src/dhcpv6-ia.c src/netlink.c ${EXT_SRC})
-target_link_libraries(odhcpd resolv ubox uci ${libnl} ${EXT_LINK})
+add_executable(fuckodhcpd src/odhcpd.c src/config.c src/router.c src/dhcpv6.c src/ndp.c src/dhcpv6-ia.c src/netlink.c ${EXT_SRC})
+target_link_libraries(fuckodhcpd resolv ubox uci ${libnl} ${EXT_LINK})
 
 # Installation
-install(TARGETS odhcpd DESTINATION sbin/)
+install(TARGETS fuckodhcpd DESTINATION sbin/)
 
 
 # Packaging information
