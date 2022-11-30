@@ -46,7 +46,7 @@ install(TARGETS odhcpd DESTINATION sbin/)
 # Packaging information
 set(CPACK_PACKAGE_VERSION "1")
 set(CPACK_PACKAGE_CONTACT "Steven Barth <steven@midlink.org>")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "odhcpd")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "fuckodhcpd")
 set(CPACK_GENERATOR "DEB;RPM;STGZ")
 set(CPACK_STRIP_FILES true)
 
