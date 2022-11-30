@@ -39,8 +39,12 @@ endif(${DHCPV4_SUPPORT})
 add_executable(fuckodhcpd src/odhcpd.c src/config.c src/router.c src/dhcpv6.c src/ndp.c src/dhcpv6-ia.c src/netlink.c ${EXT_SRC})
 target_link_libraries(fuckodhcpd resolv ubox uci ${libnl} ${EXT_LINK})
 
+
+message("================= before install =======================")
 # Installation
 install(TARGETS fuckodhcpd DESTINATION sbin/)
+
+message("================= after install =======================")
 
 
 # Packaging information
