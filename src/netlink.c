@@ -29,6 +29,7 @@
 #include <libubox/list.h>
 
 #include "odhcpd.h"
+#include "ndp.h"
 
 struct event_socket {
 	struct odhcpd_event ev;
@@ -429,7 +430,7 @@ static int handle_rtm_neigh(struct nlmsghdr *hdr, bool add)
 {
 	struct ndmsg *ndm = nlmsg_data(hdr);
 	struct nlattr *nla[__NDA_MAX];
-	struct interface *iface;
+	struct interface *iface, *c;
 	struct netevent_handler_info event_info;
 	char buf[INET6_ADDRSTRLEN];
 
