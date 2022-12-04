@@ -31,7 +31,6 @@
 
 #include "dhcpv6.h"
 #include "odhcpd.h"
-#include "ndp.h"
 
 
 static void ndp_netevent_cb(unsigned long event, struct netevent_handler_info *info);

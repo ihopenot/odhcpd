@@ -425,6 +425,24 @@ static int handle_rtm_addr(struct nlmsghdr *hdr, bool add)
 	return NL_OK;
 }
 
+/* Send an ICMP-ECHO. This is less for actually pinging but for the
+ * neighbor cache to be kept up-to-date. */
+static void ping6(struct in6_addr *addr,
+		const struct interface *iface)
+{
+	struct sockaddr_in6 dest = { .sin6_family = AF_INET6, .sin6_addr = *addr , };
+	struct icmp6_hdr echo = { .icmp6_type = ICMP6_ECHO_REQUEST };
+	struct iovec iov = { .iov_base = &echo, .iov_len = sizeof(echo) };
+	char ipbuf[INET6_ADDRSTRLEN];
+
+	inet_ntop(AF_INET6, addr, ipbuf, sizeof(ipbuf));
+	syslog(LOG_DEBUG, "Pinging for %s on %s", ipbuf, iface->name);
+
+	netlink_setup_route(addr, 128, iface->ifindex, NULL, 128, true);
+	odhcpd_send(iface->ndp_ping_fd, &dest, &iov, 1, iface);
+	netlink_setup_route(addr, 128, iface->ifindex, NULL, 128, false);
+}
+
 static int handle_rtm_neigh(struct nlmsghdr *hdr, bool add)
 {
 	struct ndmsg *ndm = nlmsg_data(hdr);
@@ -475,24 +493,6 @@ static int handle_rtm_neigh(struct nlmsghdr *hdr, bool add)
 	}
 
 	return NL_OK;
-}
-
-/* Send an ICMP-ECHO. This is less for actually pinging but for the
- * neighbor cache to be kept up-to-date. */
-static void ping6(struct in6_addr *addr,
-		const struct interface *iface)
-{
-	struct sockaddr_in6 dest = { .sin6_family = AF_INET6, .sin6_addr = *addr , };
-	struct icmp6_hdr echo = { .icmp6_type = ICMP6_ECHO_REQUEST };
-	struct iovec iov = { .iov_base = &echo, .iov_len = sizeof(echo) };
-	char ipbuf[INET6_ADDRSTRLEN];
-
-	inet_ntop(AF_INET6, addr, ipbuf, sizeof(ipbuf));
-	syslog(LOG_DEBUG, "Pinging for %s on %s", ipbuf, iface->name);
-
-	netlink_setup_route(addr, 128, iface->ifindex, NULL, 128, true);
-	odhcpd_send(iface->ndp_ping_fd, &dest, &iov, 1, iface);
-	netlink_setup_route(addr, 128, iface->ifindex, NULL, 128, false);
 }
 
 /* Handler for neighbor cache entries from the kernel. This is our source
