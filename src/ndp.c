@@ -153,7 +153,7 @@ int ndp_setup_interface(struct interface *iface, bool enable)
 		}
 
 
-		iface->ndp_event.uloop.fd = socket(AF_PACKET, SOCK_RAW | SOCK_CLOEXEC, htons(ETH_P_IPV6));
+		iface->ndp_event.uloop.fd = socket(AF_PACKET, SOCK_DGRAM | SOCK_CLOEXEC, htons(ETH_P_IPV6));
 		if (iface->ndp_event.uloop.fd < 0) {
 			syslog(LOG_ERR, "socket(AF_PACKET): %m");
 			ret = -1;
