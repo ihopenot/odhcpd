@@ -480,7 +480,7 @@ static int handle_rtm_neigh(struct nlmsghdr *hdr, bool add)
 		event_info.neigh.state = ndm->ndm_state;
 		event_info.neigh.flags = ndm->ndm_flags;
 
-		if(add && iface->external) {
+		if(iface->external) {
 			syslog(LOG_DEBUG, "Doing Ping---");
 			avl_for_each_element(&interfaces, c, avl) {
 				if (iface != c && c->ndp == MODE_RELAY &&
